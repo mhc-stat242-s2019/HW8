@@ -1,0 +1,111 @@
+---
+title: "HW8"
+subtitle: "Sections 9.1, 9.2, 9.3.2, 9.3.3, 9.3.4, 10.1, 10.2.2, 10.2.3, 10.3"
+author: "Your Name Here"
+output: pdf_document
+---
+
+The code below just loads some packages and makes it so that enough digits are printed that you won't get confused by rounding errors.
+
+```{r, message = FALSE}
+library(dplyr) # functions like summarize
+library(ggplot2) # for making plots
+library(readr)
+
+options("pillar.sigfig" = 10) # print 10 significant digits in summarize output
+```
+
+## Problem 1: Assets and Sales
+
+We have data on 262 companies selected from th Forbes Global 2000 list:
+
+```{r}
+forbes <- read_csv("http://www.evanlray.com/data/sdm4/Forbes_Global_2000.csv") %>%
+  transmute(
+    company = Company,
+    country = Country,
+    sales = Sales,
+    assets = `Assets($B)`,
+    sector = Sector
+  )
+head(forbes)
+
+forbes %>%
+  distinct(sector)
+```
+
+Here we will consider the relationships between the following three variables:
+
+ * `sales` in billions of dollars (our response variable)
+ * `assets` in billions of dollars (explanatory variable)
+ * `sector`, one of 7 industry sectors
+
+#### (a) Make at least two exploratory plots of the data.  At least one plot should involve all three variables.
+
+```{r}
+
+```
+
+#### (b) Find a transformation of the data so that the linear model conditions are as well satisfied as possible.
+
+You do not need to keep all the transformations you try unless you want to.  For your final selected transformation, you should show:
+
+ * a scatter plot of the transformed sales vs the transformed assets, with points for different industry sectors distinguished by color, shape, or facetting
+ * a scatter plot of the residuals vs the transformed assets, with points for different industry sectors distinguished by color, shape, or facetting
+ * density plots of the residuals for each industry sector, with density curves for different industry sectors distinguished by color or facetting
+
+**Note:** It will not be possible to simultaneously satisfy all of the linear model conditions, but you will be able to do fairly well.  Prioritize getting a linear form with standard deviations that are consistent across different values of the transformed assets variable.  My selected transformation had a residual standard deviation that was about 3 times larger in the industry sector with highest standard deviation than in the sector with lowest residual standard deviation.  Don't obsess; you can go to "half-steps" on the ladder of powers, but not finer (e.g., a power of 0.25 is ok, but a power of 0.1 is too much fiddling).
+
+```{r}
+
+```
+
+#### (d) Fit a model that allows for a separate intercept and slope for all sectors, and print a summary of the model fit.
+
+```{r}
+
+```
+
+#### (e) Conduct a test of the claim that the slope of a line describing the relationship between (transformed) assets and (tranformed) sales in the financial industry is the same as the slope of a line describing that relationship in the computer hardware industry, allowing for the intercepts to be different.  State your hypotheses in terms of equations involving the model parameters and draw a conclusion stated in terms of strength of evidence against the null hypothesis.
+
+
+
+#### (f) Find a confidence interval for the difference in slopes between the financial industry and the computer hardware industry.  Interpret your interval in context.
+
+```{r}
+
+```
+
+#### (g) Our data set comes with a "Computer Hardware" sector and an "Electronics" sector, but those categories seem similar.  Create a new variable in the data set called `sector_reduced` that combines those two sectors into a single category called "Computers and Electronics".  (See handouts from Friday, Feb 15 if you don't remember how to do this.)  You should verify informally that your solution worked by looking at the updated data set.
+
+```{r}
+
+```
+
+#### (h) Using your new variable from part (g), fit a new model that forces the intercept and slope to be the same for the "Computer Hardware" and "Electronics" sectors, but otherwise allows for different intercepts and slopes across all industries.  Use the resulting model fit to conduct a test of the claim that the intercept and slope are the same for the "Computer Hardware" and "Electronics" sectors in the population of all companies.  You should conduct a single test about both parameters, not two separate tests.  State your hypothesis in terms of equations involving the model parameters and a sentence describing what the null hypothesis means in context, and draw conclusions for the test in terms of strength of evidence against the null hypothesis.
+
+```{r}
+
+```
+
+## Problem 2: Natal Dispersal Distances of Mammals (Sleuth3 problem 11.24)
+
+Quote from the book:
+
+> Natal dispersal distances are the distances that juvenile animals travel from their birthplace to their adult home. An assessment of the factors affecting dispersal distances is importan for understanding population spread, recolonization, and gene flow -- which are central issues for conservation of many vertebrate species. For example, an understanding of dispersal distances will help to identify which species in a community are vulnerable to the loss of connectedness of habitat. To further the understanding of determinants of natal dispersal distances, researchers gathered data on body mass, diet type (herbivore, omnivore, or carnivore), and maximum natal dispersal distance for various mammals. ... Analyze the data to describe the distribution of maximum dispersal distance as a function of body mass and diet type.  Write a summary of statistical findings.
+
+The following R code reads in the data.
+
+```{r}
+dispersion <- read_csv("http://www.evanlray.com/data/sleuth3/ex1124_natal_dispersion.csv")
+head(dispersion)
+```
+
+Here are things I will be looking more in more detail:
+
+1. You will need to find a data transformation.  Please justify your choice of transformation with a brief discussion of plots of the transformed data and residuals.  Remember not to obsess about finding a perfect transformation; a good-enough transformation can be found on the steps of the ladder of powers.
+
+2. The model you use should be justified (i.e., only allow for different slopes for the different diet types if the data indicate different slopes are necessary).
+
+3. Your scientific conclusions should discuss, in context, conclusions that can be drawn about the associations between body mass, diet type, and natal dispersal distance.  It would be good to discuss confidence intervals for these associations.
+
